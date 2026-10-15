@@ -22,13 +22,33 @@ public class server {
         int cont = 1;
 
         while(cont == 1){
-            Integer recieved  = RFC.readInt();
-            System.out.println("Client sent: "+recieved+"\nCalculating its product by 5...");
-            Integer product = recieved * 5 ;
+            Integer x  = RFC.readInt();
+            String op  = RFC.readUTF();
+            Integer y = RFC.readInt();
+            double result = 0;
 
-            STC.writeInt(product);
+            switch (op) {
+                case "+":
+                    result = x+y;
+                    break;
+                case "-":
+                    result = x-y;
+                    break;
+                case "*":
+                    result = x*y;
+                    break;
+                case "/":
+                    result = x/y;
+                    break;
+                default:
+                    break;
+            }
 
-            System.out.println(product+" Has been sent to the client as a result.");
+            System.out.println("Client sent The operation "+ x +" "+ op+ " " + y + " Doing the necessairy calculations...");
+
+            STC.writeDouble(result);
+
+            System.out.println(result+" Has been sent to the client as a result.");
 
             cont = RFC.readInt();
 
